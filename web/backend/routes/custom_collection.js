@@ -1,5 +1,5 @@
 import Controller from './../controllers/custom_collection.js'
 
-export default function productRoute(app) {
+export default function customCollectionRoute(app) {
   app.post('/api/custom-collections', Controller.createCustomCollections)
 }

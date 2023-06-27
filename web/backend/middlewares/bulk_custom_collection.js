@@ -3,14 +3,24 @@ import BullmqActions from './bullmq_actions.js'
 import CustomCollection from './custom_collection.js'
 import StoreSetting from './store_setting.js'
 
+const getParentName = (idParent, categories) => {
+  return categories.filter((c) => c['term_id'] === idParent)
+}
+
 const create = async (data, backgroundJobId) => {
   try {
-    const { shop, collections } = data
+    const { shop, collections, _data } = data
 
-    console.log('collections :>> ', collections)
+    // console.log('collections :>> ', collections)
     let _collections = collections.map((collection) => {
       let _collection = {}
-      _collection.title = collection.name
+      _collection.title =
+        collection.parent > 0
+          ? `${getParentName(collection.parent, _data)[0].name} > ${collection.name}`
+          : collection.name
+
+      // console.log('_collection.title :>> ', _collection.title)
+
       if (collection.slug) _collection.handle = collection.slug
 
       if (collection.description) _collection.body_html = collection.description

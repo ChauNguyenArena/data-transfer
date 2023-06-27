@@ -21,7 +21,11 @@ export default {
       ) {
         let job = await BullmqJob.create(
           'bulk_custom_collection',
-          { shop, collections: collections.slice((page - 1) * limit, page * limit) },
+          {
+            shop,
+            collections: collections.slice((page - 1) * limit, page * limit),
+            _data: collections,
+          },
           group
         )
         data.jobs.push(job)
