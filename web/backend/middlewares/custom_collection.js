@@ -10,18 +10,15 @@ const create = async ({ shop, accessToken, data }) => {
   })
 }
 
-const find = async ({ shop, accessToken, limit, filter }) => {
+const find = async ({ shop, accessToken, limit, pageInfo, filter, title }) => {
   let _limit = limit ? parseInt(limit) : 20
 
   let endpoint = `products.json?limit=${_limit}${filter || ''}`
   if (pageInfo) {
     endpoint += `&page_info=${pageInfo}`
-  } else {
-    if (order) {
-      endpoint += `&order=${order}`
-    } else {
-      endpoint += `&order=updated_at+desc`
-    }
+  }
+  if (title) {
+    endpoint += `&title=${title}`
   }
 
   return await apiCaller({

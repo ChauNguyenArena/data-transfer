@@ -13,9 +13,9 @@ const create = async (data, backgroundJobId) => {
       _collection.title = collection.name
       if (collection.slug) _collection.handle = collection.slug
 
-      if (collection.description) _collection.body_html = collection.slug
+      if (collection.description) _collection.body_html = collection.description
 
-      if (collection.thumbnail) _collection.image = { src: collection.thumbnail }
+      // if (collection.thumbnail) _collection.image = { src: collection.thumbnail }
 
       return _collection
     })
