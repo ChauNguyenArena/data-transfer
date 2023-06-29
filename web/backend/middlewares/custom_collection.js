@@ -13,7 +13,7 @@ const create = async ({ shop, accessToken, data }) => {
 const find = async ({ shop, accessToken, limit, pageInfo, filter, title }) => {
   let _limit = limit ? parseInt(limit) : 20
 
-  let endpoint = `products.json?limit=${_limit}${filter || ''}`
+  let endpoint = `custom_collections.json?limit=${_limit}${filter || ''}`
   if (pageInfo) {
     endpoint += `&page_info=${pageInfo}`
   }
