@@ -38,6 +38,9 @@ const create = async (job) => {
       case 'bulk_custom_collection':
         await BulkCustomCollection.create(backgroundJob.data, backgroundJob.id)
         break
+      case 'bulk_delete_custom_collection':
+        await BulkCustomCollection.delete(backgroundJob.data, backgroundJob.id)
+        break
 
       default:
         throw new Error('Invalid background job type')

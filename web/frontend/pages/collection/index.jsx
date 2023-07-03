@@ -31,6 +31,14 @@ function CollectionPage() {
     setLoading(false)
   }
 
+  const handleDeleteCollections = async (data) => {
+    let res = null
+    res = await CustomCollectionApi.delete(data)
+
+    // console.log('res:>>', res)
+    setLoading(false)
+  }
+
   console.log('workbook :>> ', workbook)
 
   return (
@@ -46,6 +54,15 @@ function CollectionPage() {
           disabled={!workbook}
         >
           Convert
+        </Button>
+        <Button
+          onClick={() => {
+            handleDeleteCollections(workbook)
+            setLoading(true)
+          }}
+          disabled={!workbook}
+        >
+          Delete
         </Button>
       </LegacyStack>
     </LegacyStack>

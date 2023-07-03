@@ -10,7 +10,16 @@ const create = async ({ shop, accessToken, data }) => {
   })
 }
 
-const find = async ({ shop, accessToken, limit, pageInfo, filter, title }) => {
+const _delete = async ({ shop, accessToken, id }) => {
+  return await apiCaller({
+    shop,
+    accessToken,
+    endpoint: `custom_collections/${id}.json`,
+    method: 'DELETE',
+  })
+}
+
+const find = async ({ shop, accessToken, limit, pageInfo, filter, title, handle }) => {
   let _limit = limit ? parseInt(limit) : 20
 
   let endpoint = `custom_collections.json?limit=${_limit}${filter || ''}`
@@ -19,6 +28,9 @@ const find = async ({ shop, accessToken, limit, pageInfo, filter, title }) => {
   }
   if (title) {
     endpoint += `&title=${title}`
+  }
+  if (handle) {
+    endpoint += `&handle=${handle}`
   }
 
   return await apiCaller({
@@ -32,6 +44,7 @@ const find = async ({ shop, accessToken, limit, pageInfo, filter, title }) => {
 const CustomCollection = {
   create,
   find,
+  delete: _delete,
 }
 
 export default CustomCollection

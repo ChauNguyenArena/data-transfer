@@ -37,4 +37,39 @@ export default {
       return ResponseHandler.error(res, error)
     }
   },
+
+  deleteCustomCollections: async (req, res) => {
+    console.log('\n----------------------------------------')
+
+    try {
+      const { shop, accessToken } = getCurrentSession(req, res)
+
+      const collections = req.body
+      // console.log('collections :>> ', collections)
+      // return
+      let data = {}
+      let group = `bulk_custom_collection_group_${Date.now()}`
+      data = { jobs: [], group }
+      for (
+        let page = 1, limit = 10, totalPages = Math.ceil(collections.length / limit);
+        page <= totalPages;
+        page++
+      ) {
+        let job = await BullmqJob.create(
+          'bulk_delete_custom_collection',
+          {
+            shop,
+            collections: collections.slice((page - 1) * limit, page * limit),
+          },
+          group
+        )
+        data.jobs.push(job)
+      }
+
+      return ResponseHandler.success(res, data)
+    } catch (error) {
+      console.log('/api/custom-collections error :>> ', error.message)
+      return ResponseHandler.error(res, error)
+    }
+  },
 }

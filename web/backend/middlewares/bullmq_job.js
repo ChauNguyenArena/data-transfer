@@ -37,6 +37,10 @@ const createNewQueue = (queueName) => {
     job.remove()
   })
 
+  worker.on('stalled', async (jobId) => {
+    console.log(`${jobId} adadada`)
+  })
+
   worker.on('removed', async (job) => {})
 
   return myQueue
