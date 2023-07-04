@@ -41,8 +41,8 @@ const create = async (data, backgroundJobId) => {
       let total = _collections.length
       if (!total) resolve()
       for (let i = 0; i < total; i++) {
-        setTimeout(async () => {
-          await CustomCollection.create({
+        setTimeout(() => {
+          CustomCollection.create({
             shop,
             accessToken,
             data: { custom_collection: _collections[i] },
@@ -96,8 +96,8 @@ const _delete = async (data, backgroundJobId) => {
       let total = _collections.length
       if (!total) resolve()
       for (let i = 0; i < total; i++) {
-        setTimeout(async () => {
-          await CustomCollection.delete({
+        setTimeout(() => {
+          CustomCollection.delete({
             shop,
             accessToken,
             id: _collections[i],
